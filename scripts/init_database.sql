@@ -21,30 +21,29 @@ before running this script in any production or shared environment.
 */
 
 
---Create Database "Data Warehouse"
-
+--Using 'master' as the Database
 USE master;
 GO
 
---DROP and recreate the 'DataWarehouse' database
-IF EXISTS (SELECT 1 FROM sys.databases WHERE name = 'DataWarehouse')
-BEGIN
-	ALTER DATABASE DataWarehouse SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
-	DROP DATABASE DataWarehouse;
-END;
+--Drop the Database if it Exists
+IF EXISTS(SELECT 1 FROM sys.databases WHERE name = 'DataWarehouse')
+	BEGIN 
+		ALTER DATABASE DataWarehouse SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+		DROP DATABASE DataWarehouse;
+	END;
 GO
 
---Create the 'DataWarehouse' database
+--creating the 'DataWarehouse' Database
 CREATE DATABASE DataWarehouse;
 GO
 
+--Switching to 'Datawarehouse' as the Database
 USE DataWarehouse;
-GO
+GO 
 
---Create Schemas
+-- Creating Schemas for the layers Bronze, Silver, Gold
 CREATE SCHEMA bronze;
 GO
-
 
 CREATE SCHEMA silver;
 GO
